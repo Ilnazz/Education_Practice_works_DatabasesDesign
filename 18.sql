@@ -64,8 +64,13 @@ HAVING Work_Experience > 5
 
 -- 14. Найти преподавателей с датой рождения не раньше 1990-го года, сгруппировать их по стажу работы;
 --     оставить только те группы, в которых более 2ух преподавателей
-SELECT Work_Experience, LName, FName FROM Teacher
+SELECT Work_Experience, Birth_Date, LName, FName FROM Teacher
 	WHERE Birth_Date > '1900-01-01'
-GROUP BY COUNT(ID_Teacher) > 2
+GROUP BY Work_Experience, Birth_Date, LName, FName
+HAVING COUNT(ID_Teacher) > 2
 
--- 15.
+-- 15. Выбрать студентов с фамилией, начинающейся на 'Х', сгруппировать по группе
+SELECT x FROM Student
+	WHERE LName LIKE 'Х%'
+GROUP BY ID_Group
+?
