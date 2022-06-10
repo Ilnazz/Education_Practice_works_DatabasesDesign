@@ -1,44 +1,56 @@
 USE College
 
--- 1. Декартово произведение таблиц Студент и Группа
+-- 1. Р”РµРєР°СЂС‚РѕРІРѕ РїСЂРѕРёР·РІРµРґРµРЅРёРµ С‚Р°Р±Р»РёС† РЎС‚СѓРґРµРЅС‚ Рё Р“СЂСѓРїРїР°
 SELECT * FROM Student, [Group]
 
--- 2. Вывести номера групп и названия их специальностей
-SELECT ID_Group 'Номер группы', Name_Speciality 'Название специальности' FROM [Group]
+-- 2. Р’С‹РІРµСЃС‚Рё РЅРѕРјРµСЂР° РіСЂСѓРїРї Рё РЅР°Р·РІР°РЅРёСЏ РёС… СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚РµР№
+SELECT ID_Group 'РќРѕРјРµСЂ РіСЂСѓРїРїС‹', Name_Speciality 'РќР°Р·РІР°РЅРёРµ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё' FROM [Group]
 	JOIN Speciality
 		ON [Group].ID_Speciality = Speciality.ID_Speciality
 
---SELECT ID_Group 'Номер группы', Name_Speciality 'Название специальности' FROM [Group], Speciality
+--SELECT ID_Group 'РќРѕРјРµСЂ РіСЂСѓРїРїС‹', Name_Speciality 'РќР°Р·РІР°РЅРёРµ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё' FROM [Group], Speciality
 --	WHERE [Group].ID_Speciality = Speciality.ID_Speciality
 
--- 3. Вывести ФИО Преподавателей и наименование дисциплин, которые они преподают
-SELECT t.LName 'Фамилия', t.FName 'Имя', t.Patronymic 'Отчество', d.Name_Discipline 'Название дисциплины' FROM Teacher t
+-- 3. Р’С‹РІРµСЃС‚Рё Р¤РРћ РџСЂРµРїРѕРґР°РІР°С‚РµР»РµР№ Рё РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅ, РєРѕС‚РѕСЂС‹Рµ РѕРЅРё РїСЂРµРїРѕРґР°СЋС‚
+SELECT t.LName 'Р¤Р°РјРёР»РёСЏ', t.FName 'РРјСЏ', t.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ', d.Name_Discipline 'РќР°Р·РІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅС‹' FROM Teacher t
 	JOIN Teacher_Discipline td
-		ON td.ID_Teacher = t.ID_Teacher
+		ON t.ID_Teacher = td.ID_Teacher
 			JOIN Discipline d
 				ON td.ID_Discipline = d.ID_Discipline
+				
+--SELECT t.LName 'Р¤Р°РјРёР»РёСЏ', t.FName 'РРјСЏ', t.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ', d.Name_Discipline 'РќР°Р·РІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅС‹'
+--	FROM Teacher t, Teacher_Discipline td, Discipline d
+--		WHERE t.ID_Teacher = td.ID_Teacher AND td.ID_Discipline = d.ID_Discipline
 
--- 4. Вывести номер группы, название дисциплины и количество часов по этой дисциплине в этой группе
-SELECT g.ID_Group 'Номер группы', d.Name_Discipline 'Название дисциплины', sp.Number_Hours 'Количество часов' FROM [Group] g
+-- 4. Р’С‹РІРµСЃС‚Рё РЅРѕРјРµСЂ РіСЂСѓРїРїС‹, РЅР°Р·РІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅС‹ Рё РєРѕР»РёС‡РµСЃС‚РІРѕ С‡Р°СЃРѕРІ РїРѕ СЌС‚РѕР№ РґРёСЃС†РёРїР»РёРЅРµ РІ СЌС‚РѕР№ РіСЂСѓРїРїРµ
+SELECT g.ID_Group 'РќРѕРјРµСЂ РіСЂСѓРїРїС‹', d.Name_Discipline 'РќР°Р·РІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅС‹', sp.Number_Hours 'РљРѕР»РёС‡РµСЃС‚РІРѕ С‡Р°СЃРѕРІ' FROM [Group] g
 	JOIN Study_Plan sp
 		ON g.ID_Group = sp.ID_Group
 			JOIN Discipline d
 				ON sp.ID_Discipline= d.ID_Discipline
 
--- 5. Вывести специальности всех студентов
-SELECT st.LName 'Фамилия', st.FName 'Имя', st.Patronymic 'Отчество', sp.Name_Speciality 'Название специальности' FROM Student st
+--SELECT g.ID_Group 'РќРѕРјРµСЂ РіСЂСѓРїРїС‹', d.Name_Discipline 'РќР°Р·РІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅС‹', sp.Number_Hours 'РљРѕР»РёС‡РµСЃС‚РІРѕ С‡Р°СЃРѕРІ'
+--	FROM [Group] g, Study_Plan sp, Discipline d
+--		WHERE g.ID_Group = sp.ID_Group AND sp.ID_Discipline = d.ID_Discipline
+
+-- 5. Р’С‹РІРµСЃС‚Рё Р¤РРћ СЃС‚СѓРґРµРЅС‚РѕРІ Рё СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё, РїРѕ РєРѕС‚РѕСЂС‹Рј РѕРЅРё СѓС‡Р°С‚СЃСЏ
+SELECT st.LName 'Р¤Р°РјРёР»РёСЏ', st.FName 'РРјСЏ', st.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ', sp.Name_Speciality 'РќР°Р·РІР°РЅРёРµ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё' FROM Student st
 	JOIN [Group] g
 		ON st.ID_Group = g.ID_Group
 			JOIN Speciality sp
 				ON sp.ID_Speciality = g.ID_Speciality
+				
+SELECT st.LName 'Р¤Р°РјРёР»РёСЏ', st.FName 'РРјСЏ', st.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ', sp.Name_Speciality 'РќР°Р·РІР°РЅРёРµ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё'
+	FROM Student st, [Group] g, Speciality sp
+		WHERE st.ID_Group = g.ID_Group AND sp.ID_Speciality = g.ID_Speciality
 
-4.	2 запроса с использованием соединения  двух таблиц по равенству и условием отбора; 
-5.	2 запроса с использованием соединения  трех  таблиц по равенству и условием отбора; 
-6.	1 запроса с использованием симметричного соединения и удаление избыточности. 
+4.	2 Р·Р°РїСЂРѕСЃР° СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј СЃРѕРµРґРёРЅРµРЅРёСЏ  РґРІСѓС… С‚Р°Р±Р»РёС† РїРѕ СЂР°РІРµРЅСЃС‚РІСѓ Рё СѓСЃР»РѕРІРёРµРј РѕС‚Р±РѕСЂР°; 
+5.	2 Р·Р°РїСЂРѕСЃР° СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј СЃРѕРµРґРёРЅРµРЅРёСЏ  С‚СЂРµС…  С‚Р°Р±Р»РёС† РїРѕ СЂР°РІРµРЅСЃС‚РІСѓ Рё СѓСЃР»РѕРІРёРµРј РѕС‚Р±РѕСЂР°; 
+6.	1 Р·Р°РїСЂРѕСЃР° СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј СЃРёРјРјРµС‚СЂРёС‡РЅРѕРіРѕ СЃРѕРµРґРёРЅРµРЅРёСЏ Рё СѓРґР°Р»РµРЅРёРµ РёР·Р±С‹С‚РѕС‡РЅРѕСЃС‚Рё. 
 
 
--- 6. Вывести ФИО Преподавателей и наименование дисциплин, которые они преподают
-SELECT t.LName 'Фамилия', t.FName 'Имя', t.Patronymic 'Отчество', d.Name_Discipline 'Название дисциплины' FROM Teacher t
+-- 6. Р’С‹РІРµСЃС‚Рё Р¤РРћ РџСЂРµРїРѕРґР°РІР°С‚РµР»РµР№ Рё РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅ, РєРѕС‚РѕСЂС‹Рµ РѕРЅРё РїСЂРµРїРѕРґР°СЋС‚
+SELECT t.LName 'Р¤Р°РјРёР»РёСЏ', t.FName 'РРјСЏ', t.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ', d.Name_Discipline 'РќР°Р·РІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅС‹' FROM Teacher t
 	WHERE t.Birth_Date < '1990-01-01'
 	JOIN Teacher_Discipline td
 		ON td.ID_Teacher = t.ID_Teacher
