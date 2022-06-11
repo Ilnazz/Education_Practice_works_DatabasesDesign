@@ -54,7 +54,11 @@ SELECT t.LName 'Фамилия', t.FName 'Имя', t.Patronymic 'Отчеств�
 			JOIN Discipline d
 				ON td.ID_Discipline = d.ID_Discipline
 
+-- SELECT t.LName 'Фамилия', t.FName 'Имя', t.Patronymic 'Отчество', d.Name_Discipline 'Название дисциплины'
+-- 	FROM Teacher t, Teacher_Discipline td, Discipline d
+-- 		WHERE t.Birth_Date < '1990-01-01' AND t.ID_Teacher = td.ID_Teacher AND td.ID_Discipline = d.ID_Discipline
 
+-- 7. 
 
 5.	2 запроса с использованием соединения  трех  таблиц по равенству и условием отбора; 
 6.	1 запроса с использованием симметричного соединения и удаление избыточности. 
