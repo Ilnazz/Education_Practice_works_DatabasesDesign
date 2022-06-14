@@ -1,91 +1,91 @@
 USE College
 
--- Внутренние запросы
+-- Р’РЅСѓС‚СЂРµРЅРЅРёРµ Р·Р°РїСЂРѕСЃС‹
 
--- 1. Декартово произведение таблиц Студент и Группа
+-- 1. Р”РµРєР°СЂС‚РѕРІРѕ РїСЂРѕРёР·РІРµРґРµРЅРёРµ С‚Р°Р±Р»РёС† РЎС‚СѓРґРµРЅС‚ Рё Р“СЂСѓРїРїР°
 SELECT * FROM Student, [Group]
 
--- 2. Вывести номера групп и названия их специальностей
-SELECT ID_Group 'Номер группы', Name_Speciality 'Название специальности' FROM [Group]
+-- 2. Р’С‹РІРµСЃС‚Рё РЅРѕРјРµСЂР° РіСЂСѓРїРї Рё РЅР°Р·РІР°РЅРёСЏ РёС… СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚РµР№
+SELECT ID_Group 'РќРѕРјРµСЂ РіСЂСѓРїРїС‹', Name_Speciality 'РќР°Р·РІР°РЅРёРµ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё' FROM [Group]
 	JOIN Speciality
 		ON [Group].ID_Speciality = Speciality.ID_Speciality
 
---SELECT ID_Group 'Номер группы', Name_Speciality 'Название специальности' FROM [Group], Speciality
+--SELECT ID_Group 'РќРѕРјРµСЂ РіСЂСѓРїРїС‹', Name_Speciality 'РќР°Р·РІР°РЅРёРµ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё' FROM [Group], Speciality
 --	WHERE [Group].ID_Speciality = Speciality.ID_Speciality
 
--- 3. Вывести ФИО Преподавателей и наименование дисциплин, которые они преподают
-SELECT t.LName 'Фамилия', t.FName 'Имя', t.Patronymic 'Отчество', d.Name_Discipline 'Название дисциплины' FROM Teacher t
+-- 3. Р’С‹РІРµСЃС‚Рё Р¤РРћ РџСЂРµРїРѕРґР°РІР°С‚РµР»РµР№ Рё РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅ, РєРѕС‚РѕСЂС‹Рµ РѕРЅРё РїСЂРµРїРѕРґР°СЋС‚
+SELECT t.LName 'Р¤Р°РјРёР»РёСЏ', t.FName 'РРјСЏ', t.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ', d.Name_Discipline 'РќР°Р·РІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅС‹' FROM Teacher t
 	JOIN Teacher_Discipline td
 		ON t.ID_Teacher = td.ID_Teacher
 			JOIN Discipline d
 				ON td.ID_Discipline = d.ID_Discipline
 				
---SELECT t.LName 'Фамилия', t.FName 'Имя', t.Patronymic 'Отчество', d.Name_Discipline 'Название дисциплины'
+--SELECT t.LName 'Р¤Р°РјРёР»РёСЏ', t.FName 'РРјСЏ', t.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ', d.Name_Discipline 'РќР°Р·РІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅС‹'
 --	FROM Teacher t, Teacher_Discipline td, Discipline d
 --		WHERE t.ID_Teacher = td.ID_Teacher AND td.ID_Discipline = d.ID_Discipline
 
--- 4. Вывести номер группы, название дисциплины и количество часов по этой дисциплине в этой группе
-SELECT g.ID_Group 'Номер группы', d.Name_Discipline 'Название дисциплины', sp.Number_Hours 'Количество часов' FROM [Group] g
+-- 4. Р’С‹РІРµСЃС‚Рё РЅРѕРјРµСЂ РіСЂСѓРїРїС‹, РЅР°Р·РІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅС‹ Рё РєРѕР»РёС‡РµСЃС‚РІРѕ С‡Р°СЃРѕРІ РїРѕ СЌС‚РѕР№ РґРёСЃС†РёРїР»РёРЅРµ РІ СЌС‚РѕР№ РіСЂСѓРїРїРµ
+SELECT g.ID_Group 'РќРѕРјРµСЂ РіСЂСѓРїРїС‹', d.Name_Discipline 'РќР°Р·РІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅС‹', sp.Number_Hours 'РљРѕР»РёС‡РµСЃС‚РІРѕ С‡Р°СЃРѕРІ' FROM [Group] g
 	JOIN Study_Plan sp
 		ON g.ID_Group = sp.ID_Group
 			JOIN Discipline d
 				ON sp.ID_Discipline= d.ID_Discipline
 
---SELECT g.ID_Group 'Номер группы', d.Name_Discipline 'Название дисциплины', sp.Number_Hours 'Количество часов'
+--SELECT g.ID_Group 'РќРѕРјРµСЂ РіСЂСѓРїРїС‹', d.Name_Discipline 'РќР°Р·РІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅС‹', sp.Number_Hours 'РљРѕР»РёС‡РµСЃС‚РІРѕ С‡Р°СЃРѕРІ'
 --	FROM [Group] g, Study_Plan sp, Discipline d
 --		WHERE g.ID_Group = sp.ID_Group AND sp.ID_Discipline = d.ID_Discipline
 
--- 5. Вывести ФИО студентов и специальности, по которым они учатся
-SELECT st.LName 'Фамилия', st.FName 'Имя', st.Patronymic 'Отчество', sp.Name_Speciality 'Название специальности' FROM Student st
+-- 5. Р’С‹РІРµСЃС‚Рё Р¤РРћ СЃС‚СѓРґРµРЅС‚РѕРІ Рё СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё, РїРѕ РєРѕС‚РѕСЂС‹Рј РѕРЅРё СѓС‡Р°С‚СЃСЏ
+SELECT st.LName 'Р¤Р°РјРёР»РёСЏ', st.FName 'РРјСЏ', st.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ', sp.Name_Speciality 'РќР°Р·РІР°РЅРёРµ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё' FROM Student st
 	JOIN [Group] g
 		ON st.ID_Group = g.ID_Group
 			JOIN Speciality sp
 				ON sp.ID_Speciality = g.ID_Speciality
 				
---SELECT st.LName 'Фамилия', st.FName 'Имя', st.Patronymic 'Отчество', sp.Name_Speciality 'Название специальности'
+--SELECT st.LName 'Р¤Р°РјРёР»РёСЏ', st.FName 'РРјСЏ', st.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ', sp.Name_Speciality 'РќР°Р·РІР°РЅРёРµ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё'
 --	FROM Student st, [Group] g, Speciality sp
 --		WHERE st.ID_Group = g.ID_Group AND sp.ID_Speciality = g.ID_Speciality
 
--- 6. Вывести ФИО Преподавателей, родившихся раньше 1990-го года и наименование дисциплин, которые они преподают
-SELECT t.LName 'Фамилия', t.FName 'Имя', t.Patronymic 'Отчество', t.Birth_Date 'Дата рождения', d.Name_Discipline 'Название дисциплины' FROM Teacher t
+-- 6. Р’С‹РІРµСЃС‚Рё Р¤РРћ РџСЂРµРїРѕРґР°РІР°С‚РµР»РµР№, СЂРѕРґРёРІС€РёС…СЃСЏ СЂР°РЅСЊС€Рµ 1990-РіРѕ РіРѕРґР° Рё РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅ, РєРѕС‚РѕСЂС‹Рµ РѕРЅРё РїСЂРµРїРѕРґР°СЋС‚
+SELECT t.LName 'Р¤Р°РјРёР»РёСЏ', t.FName 'РРјСЏ', t.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ', t.Birth_Date 'Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ', d.Name_Discipline 'РќР°Р·РІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅС‹' FROM Teacher t
 		JOIN Teacher_Discipline td
 			ON t.Birth_Date < '1990-01-01' AND td.ID_Teacher = t.ID_Teacher
 				JOIN Discipline d
 					ON td.ID_Discipline = d.ID_Discipline
 
--- SELECT t.LName 'Фамилия', t.FName 'Имя', t.Patronymic 'Отчество', d.Name_Discipline 'Название дисциплины'
+-- SELECT t.LName 'Р¤Р°РјРёР»РёСЏ', t.FName 'РРјСЏ', t.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ', d.Name_Discipline 'РќР°Р·РІР°РЅРёРµ РґРёСЃС†РёРїР»РёРЅС‹'
 -- 	FROM Teacher t, Teacher_Discipline td, Discipline d
 -- 		WHERE t.Birth_Date < '1990-01-01' AND t.ID_Teacher = td.ID_Teacher AND td.ID_Discipline = d.ID_Discipline
 
--- 7. Вывести всех студентов, которые учатся в одной группе
-SELECT s1.LName 'Фамилия 1-го', s1.FName 'Имя 1-го', s1.Patronymic 'Отчество 1-го',
-	   s2.LName 'Фамилия 2-го', s2.FName 'Имя 2-го', s2.Patronymic 'Отчество 2-го', s1.ID_Group 'Номер группы'
+-- 7. Р’С‹РІРµСЃС‚Рё РІСЃРµС… СЃС‚СѓРґРµРЅС‚РѕРІ, РєРѕС‚РѕСЂС‹Рµ СѓС‡Р°С‚СЃСЏ РІ РѕРґРЅРѕР№ РіСЂСѓРїРїРµ
+SELECT s1.LName 'Р¤Р°РјРёР»РёСЏ 1-РіРѕ', s1.FName 'РРјСЏ 1-РіРѕ', s1.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ 1-РіРѕ',
+	   s2.LName 'Р¤Р°РјРёР»РёСЏ 2-РіРѕ', s2.FName 'РРјСЏ 2-РіРѕ', s2.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ 2-РіРѕ', s1.ID_Group 'РќРѕРјРµСЂ РіСЂСѓРїРїС‹'
 FROM Student s1
 	JOIN Student s2
 		ON s1.ID_Group = s2.ID_Group AND s1.ID_Student <> s2.ID_Student
 	
---SELECT s1.LName 'Фамилия 1-го', s1.FName 'Имя 1-го', s1.Patronymic 'Отчество 1-го',
---	   s2.LName 'Фамилия 2-го', s2.FName 'Имя 2-го', s2.Patronymic 'Отчество 2-го', s1.ID_Group 'Номер группы'
+--SELECT s1.LName 'Р¤Р°РјРёР»РёСЏ 1-РіРѕ', s1.FName 'РРјСЏ 1-РіРѕ', s1.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ 1-РіРѕ',
+--	   s2.LName 'Р¤Р°РјРёР»РёСЏ 2-РіРѕ', s2.FName 'РРјСЏ 2-РіРѕ', s2.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ 2-РіРѕ', s1.ID_Group 'РќРѕРјРµСЂ РіСЂСѓРїРїС‹'
 --FROM Student s1, Student s2
 --	WHERE s1.ID_Group = s2.ID_Group AND s1.ID_Student <> s2.ID_Student
 
--- Внешние запросы
+-- Р’РЅРµС€РЅРёРµ Р·Р°РїСЂРѕСЃС‹
 
--- 8. Вывести номера групп и студентов, которые состоят в этих группах
-SELECT g.ID_Group 'Номер группы', s.LName 'Фамилия', s.FName 'Имя', s.Patronymic 'Отчество' FROM [Group] g
+-- 8. Р’С‹РІРµСЃС‚Рё РЅРѕРјРµСЂР° РіСЂСѓРїРї Рё СЃС‚СѓРґРµРЅС‚РѕРІ, РєРѕС‚РѕСЂС‹Рµ СЃРѕСЃС‚РѕСЏС‚ РІ СЌС‚РёС… РіСЂСѓРїРїР°С…
+SELECT g.ID_Group 'РќРѕРјРµСЂ РіСЂСѓРїРїС‹', s.LName 'Р¤Р°РјРёР»РёСЏ', s.FName 'РРјСЏ', s.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ' FROM [Group] g
 	LEFT JOIN Student s
 		ON g.ID_Group = s.ID_Group
 
--- 9. Вывести номера студентов и номера групп, в которых они учатся
-SELECT g.ID_Group 'Номер группы', s.LName 'Фамилия', s.FName 'Имя', s.Patronymic 'Отчество' FROM [Group] g
+-- 9. Р’С‹РІРµСЃС‚Рё РЅРѕРјРµСЂР° СЃС‚СѓРґРµРЅС‚РѕРІ Рё РЅРѕРјРµСЂР° РіСЂСѓРїРї, РІ РєРѕС‚РѕСЂС‹С… РѕРЅРё СѓС‡Р°С‚СЃСЏ
+SELECT g.ID_Group 'РќРѕРјРµСЂ РіСЂСѓРїРїС‹', s.LName 'Р¤Р°РјРёР»РёСЏ', s.FName 'РРјСЏ', s.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ' FROM [Group] g
 	RIGHT JOIN Student s
 		ON g.ID_Group = s.ID_Group
 
--- 10. Для каждой группы вывести студента, который в ней учится и для каждого студента вывести группу, в которой он состоит
-SELECT g.ID_Group 'Номер группы', s.LName 'Фамилия', s.FName 'Имя', s.Patronymic 'Отчество' FROM [Group] g
+-- 10. Р”Р»СЏ РєР°Р¶РґРѕР№ РіСЂСѓРїРїС‹ РІС‹РІРµСЃС‚Рё СЃС‚СѓРґРµРЅС‚Р°, РєРѕС‚РѕСЂС‹Р№ РІ РЅРµР№ СѓС‡РёС‚СЃСЏ Рё РґР»СЏ РєР°Р¶РґРѕРіРѕ СЃС‚СѓРґРµРЅС‚Р° РІС‹РІРµСЃС‚Рё РіСЂСѓРїРїСѓ, РІ РєРѕС‚РѕСЂРѕР№ РѕРЅ СЃРѕСЃС‚РѕРёС‚
+SELECT g.ID_Group 'РќРѕРјРµСЂ РіСЂСѓРїРїС‹', s.LName 'Р¤Р°РјРёР»РёСЏ', s.FName 'РРјСЏ', s.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ' FROM [Group] g
 	FULL JOIN Student s
 		ON g.ID_Group = s.ID_Group
 		
--- 11. Для каждой группы вывести всех студентов и для каждого студента вывести все группы
-SELECT g.ID_Group 'Номер группы', s.LName 'Фамилия', s.FName 'Имя', s.Patronymic 'Отчество' FROM [Group] g
+-- 11. Р”Р»СЏ РєР°Р¶РґРѕР№ РіСЂСѓРїРїС‹ РІС‹РІРµСЃС‚Рё РІСЃРµС… СЃС‚СѓРґРµРЅС‚РѕРІ Рё РґР»СЏ РєР°Р¶РґРѕРіРѕ СЃС‚СѓРґРµРЅС‚Р° РІС‹РІРµСЃС‚Рё РІСЃРµ РіСЂСѓРїРїС‹
+SELECT g.ID_Group 'РќРѕРјРµСЂ РіСЂСѓРїРїС‹', s.LName 'Р¤Р°РјРёР»РёСЏ', s.FName 'РРјСЏ', s.Patronymic 'РћС‚С‡РµСЃС‚РІРѕ' FROM [Group] g
 	CROSS JOIN Student s
